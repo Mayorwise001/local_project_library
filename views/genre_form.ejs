@@ -5,11 +5,11 @@
     <%-include ('header.ejs') %>
 </head>
 <body>
-    <div class='col-sm-10'>
     <%- include ('layout.ejs') %>
+    <div class='col-sm-10'>
   <h1><%= title %></h1>
 
-  <form method="POST">
+  <form action="<%= (genre && genre._id) ? '/catalog/genre/' + genre._id + '/update' : '/catalog/genre/create' %>" method="POST">
     <div class="form-group">
       <label for="name">Genre:</label>
       <input id="name" class="form-control" type="text" placeholder="Fantasy, Poetry etc." name="name" required  value>

@@ -5,28 +5,26 @@
 </head>
 <body>
     <%-include('layout.ejs')%>
-    <div class="col-sm-10">
+    <div class='col-sm-0'>
     <h1>Genre: <%= genre.name %></h1>
-<div style="margin-left:20px;margin-top:20px">
-  <h2 style="font-size: 1.5rem;">Books</h2>
-  <% if (genre_books.length) { %>
-    <dl>
-      <% genre_books.forEach(function(book) { %>
-        <dt>
-          <a href="<%= book.url %>"><%= book.title %></a>
-        </dt>
-        <dd><%= book.summary %></dd>
-      <% }); %>
-    </dl>
-  <% } else { %>
-    <p>This genre has no books.</p>
-  <% } %>
 
-  <a href="<%= genre_books.url %>/delete">Delete Book</a>
-<p><a href="<%= genre_books.url %>/update">Update Book</a></p>
+    <% if (genre_books.length > 0) { %>
+      <h4>Books in this genre:</h4>
+      <ul>
+        <% genre_books.forEach(function(book) { %>
+          <li><a href="<%= book.url %>"><%= book.title %></a> - <%= book.summary %></li>
+        <% }); %>
+      </ul>
+    <% } else { %>
+      <p>This genre has no associated books.</p>
+    <% } %>
+  
+    <a href="/catalog/genre/<%= genre._id %>/update" class="btn btn-primary">Update</a>
+    <form action="/catalog/genre/<%= genre._id %>/delete" method="GET" style="display:inline;">
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+  
+    <a href="/catalog/genres" class="btn btn-secondary">Back to list</a>
 </div>
-
-</div>
-
 </body>
 </html>

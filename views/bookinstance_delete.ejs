@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('header.ejs') %>
+</head>
+<body>
+    <%- include('layout.ejs') %>
+    <div class='col-sm-2'>
+  <h1>Delete BookInstance</h1>
+  <p>ID: <%= bookinstance._id %></p>
+  <p>Title: <%= bookinstance.book.title %></p>
+  <p>Imprint: <%= bookinstance.imprint %></p>
+  <p>Status: <%= bookinstance.status %></p>
+  <% if (bookinstance.status !== 'Available') { %>
+    <p>Due back: <%= bookinstance.due_back_formatted %></p>
+  <% } %>
+
+  <form action="/catalog/bookinstance/<%= bookinstance._id %>/delete" method="POST">
+    <input type="hidden" name="id" value="<%= bookinstance._id %>">
+    <p>Are you sure you want to delete this book instance?</p>
+    <button type="submit">Delete</button>
+    <a href="/catalog/bookinstances">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%-include('header.ejs') %>
+</head>
+<body>
+<%-include('layout.ejs') %>
+
+<div class='col-sm-2'>
+<h1>ID: <%= bookinstance._id %></h1>
+
+<p><strong>Title:</strong> 
+  <a href="<%= bookinstance.book.url %>"><%= bookinstance.book.title %></a>
+</p>
+<p><strong>Imprint:</strong> <%= bookinstance.imprint %></p>
+
+<p><strong>Status:</strong> 
+  <% if (bookinstance.status === 'Available') { %>
+    <span class="text-success"><%= bookinstance.status %></span>
+  <% } else if (bookinstance.status === 'Maintenance') { %>
+    <span class="text-danger"><%= bookinstance.status %></span>
+  <% } else { %>
+    <span class="text-warning"><%= bookinstance.status %></span>
+  <% } %>
+</p>
+
+<% if (bookinstance.status !== 'Available') { %>
+  <p><strong>Due back:</strong> <%= bookinstance.due_back_formatted %></p>
+<% } %>
+
+<form action="/catalog/bookinstance/<%= bookinstance._id %>/delete" method="GET">
+        <a href="/catalog/bookinstance/<%= bookinstance._id %>/update" class="btn btn-primary">Update</a>
+    <button type="submit" class="btn btn-primary">Delete</button>
+  </form>
+</div>
+</body>
+</html>
